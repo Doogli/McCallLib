@@ -21,6 +21,10 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public MessageCodes MessageCode { get; set; }
 
+        public TCPMessage()
+        {
+        }
+
         public TCPMessage(MessageCodes code)
         {
             MessageCode = code;
