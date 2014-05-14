@@ -18,7 +18,7 @@ namespace McCallLib
     [ProtoInclude(4, typeof(UnsubscribeMessage))]
     public class TCPMessage
     {
-        [ProtoMember(1)]
+        [ProtoMember(1, IsRequired = true)]
         public MessageCodes MessageCode { get; set; }
 
         public TCPMessage(MessageCodes code)
