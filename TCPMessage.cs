@@ -45,9 +45,14 @@ namespace McCallLib
     public class AlternateServerMessage : TCPMessage
     {
         [ProtoMember(1, IsRequired = true)]
-        public IPAddress IpAddress { get; set; }
+        public string IpAddress { get; set; }
 
-        public AlternateServerMessage(IPAddress ip)
+        public AlternateServerMessage()
+            : base(MessageCodes.AltServer)
+        {
+        }
+
+        public AlternateServerMessage(string ip)
             : base(MessageCodes.AltServer)
         {
             IpAddress = ip;
@@ -59,6 +64,11 @@ namespace McCallLib
     {
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
+
+        public SubscribeMessage()
+            : base(MessageCodes.Subscribe)
+        {
+        }
 
         public SubscribeMessage(TelephoneNumber telNo)
             : base(MessageCodes.Subscribe)
@@ -72,6 +82,11 @@ namespace McCallLib
     {
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
+
+        public UnsubscribeMessage()
+            : base(MessageCodes.Unsubscribe)
+        {
+        }
 
         public UnsubscribeMessage(TelephoneNumber telNo)
             : base(MessageCodes.Unsubscribe)

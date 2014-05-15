@@ -22,6 +22,11 @@ namespace McCallLib
 //            UserNumber = user;
 //        }
 
+        public TelephoneNumber()
+        {
+
+        }
+
 		public TelephoneNumber(string number)
 		{
 			Number = number;
