@@ -13,10 +13,11 @@ namespace McCallLib
     }
 
     [ProtoContract]
-    [ProtoInclude(2, typeof(AlternateServerMessage))]
-    [ProtoInclude(3, typeof(SubscribeMessage))]
-    [ProtoInclude(4, typeof(UnsubscribeMessage))]
-    public class TCPMessage
+    [ProtoInclude(2, typeof(OKMessage))]
+    [ProtoInclude(3, typeof(AlternateServerMessage))]
+    [ProtoInclude(4, typeof(SubscribeMessage))]
+    [ProtoInclude(5, typeof(UnsubscribeMessage))]
+    public abstract class TCPMessage
     {
         [ProtoMember(1, IsRequired = true)]
         public MessageCodes MessageCode { get; set; }
@@ -32,9 +33,18 @@ namespace McCallLib
     }
 
     [ProtoContract]
+    public class OKMessage : TCPMessage
+    {
+        public OKMessage()
+            : base(MessageCodes.OK)
+        {
+        }
+    }
+
+    [ProtoContract]
     public class AlternateServerMessage : TCPMessage
     {
-        [ProtoMember(2)]
+        [ProtoMember(1, IsRequired = true)]
         public IPAddress IpAddress { get; set; }
 
         public AlternateServerMessage(IPAddress ip)
@@ -47,7 +57,7 @@ namespace McCallLib
     [ProtoContract]
     public class SubscribeMessage : TCPMessage
     {
-        [ProtoMember(3)]
+        [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
         public SubscribeMessage(TelephoneNumber telNo)
@@ -60,7 +70,7 @@ namespace McCallLib
     [ProtoContract]
     public class UnsubscribeMessage : TCPMessage
     {
-        [ProtoMember(4)]
+        [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
         public UnsubscribeMessage(TelephoneNumber telNo)
