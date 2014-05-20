@@ -10,7 +10,11 @@ namespace McCallLib
     [ProtoInclude(4, typeof(ContractSubscribeMessage))]
     [ProtoInclude(5, typeof(ContractUnsubscribeMessage))]
     [ProtoInclude(6, typeof(LatencyMessage))]
+<<<<<<< HEAD
     [ProtoInclude(7, typeof(NetworkOperatorMessage))]
+=======
+	[ProtoInclude(7, typeof(NetworkOperatorMessage))]
+>>>>>>> d732a7830bd3225691fae818b4c469d6ea8355bc
     public abstract class TCPMessage
     {
         public TCPMessage()
@@ -107,6 +111,7 @@ namespace McCallLib
         }
     }
 
+<<<<<<< HEAD
     [ProtoContract]
     public class NetworkOperatorMessage : TCPMessage
     {
@@ -125,4 +130,24 @@ namespace McCallLib
             Operator = op;
         }
     }
+=======
+	[ProtoContract]
+	public class NetworkOperatorMessage : TCPMessage
+	{
+		[ProtoMember(1, IsRequired = true)]
+		public NetworkOperator Operator { get; set; }
+
+
+		//public LatencyMessage()
+		//    : base()
+		//{
+		//}
+
+		public NetworkOperatorMessage(NetworkOperator op)
+			: base()
+		{
+			Operator = op;
+		}
+	}
+>>>>>>> d732a7830bd3225691fae818b4c469d6ea8355bc
 }
