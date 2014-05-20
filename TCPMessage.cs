@@ -4,31 +4,16 @@ using System.Net;
 
 namespace McCallLib
 {
-    public enum MessageCodes
-    {
-        OK = 0,
-        AltServer,
-        Subscribe,
-        Unsubscribe
-    }
-
     [ProtoContract]
     [ProtoInclude(2, typeof(OKMessage))]
     [ProtoInclude(3, typeof(AlternateServerMessage))]
-    [ProtoInclude(4, typeof(SubscribeMessage))]
-    [ProtoInclude(5, typeof(UnsubscribeMessage))]
+    [ProtoInclude(4, typeof(ContractSubscribeMessage))]
+    [ProtoInclude(5, typeof(ContractUnsubscribeMessage))]
+    [ProtoInclude(6, typeof(LatencyMessage))]
     public abstract class TCPMessage
     {
-        [ProtoMember(1, IsRequired = true)]
-        public MessageCodes MessageCode { get; set; }
-
         public TCPMessage()
         {
-        }
-
-        public TCPMessage(MessageCodes code)
-        {
-            MessageCode = code;
         }
     }
 
@@ -36,7 +21,7 @@ namespace McCallLib
     public class OKMessage : TCPMessage
     {
         public OKMessage()
-            : base(MessageCodes.OK)
+            : base()
         {
         }
     }
@@ -47,51 +32,77 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public string IpAddress { get; set; }
 
-        public AlternateServerMessage()
-            : base(MessageCodes.AltServer)
-        {
-        }
+        //public AlternateServerMessage()
+        //    : base()
+        //{
+        //}
 
         public AlternateServerMessage(string ip)
-            : base(MessageCodes.AltServer)
+            : base()
         {
             IpAddress = ip;
         }
     }
 
     [ProtoContract]
-    public class SubscribeMessage : TCPMessage
+    public class ContractSubscribeMessage : TCPMessage
     {
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
-        public SubscribeMessage()
-            : base(MessageCodes.Subscribe)
-        {
-        }
+        //public ContractSubscribeMessage()
+        //    : base()
+        //{
+        //}
 
-        public SubscribeMessage(TelephoneNumber telNo)
-            : base(MessageCodes.Subscribe)
+        public ContractSubscribeMessage(TelephoneNumber telNo)
+            : base()
         {
             TelNo = telNo;
         }
     }
 
     [ProtoContract]
-    public class UnsubscribeMessage : TCPMessage
+    public class ContractUnsubscribeMessage : TCPMessage
     {
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
-        public UnsubscribeMessage()
-            : base(MessageCodes.Unsubscribe)
-        {
-        }
+        //public ContractUnsubscribeMessage()
+        //    : base()
+        //{
+        //}
 
-        public UnsubscribeMessage(TelephoneNumber telNo)
-            : base(MessageCodes.Unsubscribe)
+        public ContractUnsubscribeMessage(TelephoneNumber telNo)
+            : base()
         {
             TelNo = telNo;
+        }
+    }
+
+    [ProtoContract]
+    public class LatencyMessage : TCPMessage
+    {
+        [ProtoMember(1, IsRequired = true)]
+        public TelephoneNumber MyTelNo { get; set; }
+
+        [ProtoMember(2, IsRequired = true)]
+        public TelephoneNumber SourceTelNo { get; set; }
+
+        [ProtoMember(3, IsRequired = true)]
+        public int LatencyMS { get; set; }
+
+        //public LatencyMessage()
+        //    : base()
+        //{
+        //}
+
+        public LatencyMessage(TelephoneNumber myTelNo, TelephoneNumber sourceTelNo, int latencyMS)
+            : base()
+        {
+            MyTelNo = myTelNo;
+            SourceTelNo = sourceTelNo;
+            LatencyMS = latencyMS;
         }
     }
 }
