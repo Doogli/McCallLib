@@ -21,7 +21,7 @@ namespace McCallLib
 
         public NetworkOperator(string countryISO, string operatorCode, string operatorName)
         {
-            CountryISO = countryISO;
+			CountryISO = countryISO ;
             OperatorCode = operatorCode;
             OperatorName = operatorName;
         }
