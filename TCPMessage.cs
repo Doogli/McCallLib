@@ -34,10 +34,10 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public string IpAddress { get; set; }
 
-        //public AlternateServerMessage()
-        //    : base()
-        //{
-        //}
+        public AlternateServerMessage()
+            : base()
+        {
+        }
 
         public AlternateServerMessage(string ip)
             : base()
@@ -52,10 +52,10 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
-        //public ContractSubscribeMessage()
-        //    : base()
-        //{
-        //}
+        public ContractSubscribeMessage()
+            : base()
+        {
+        }
 
         public ContractSubscribeMessage(TelephoneNumber telNo)
             : base()
@@ -70,10 +70,10 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public TelephoneNumber TelNo { get; set; }
 
-        //public ContractUnsubscribeMessage()
-        //    : base()
-        //{
-        //}
+        public ContractUnsubscribeMessage()
+            : base()
+        {
+        }
 
         public ContractUnsubscribeMessage(TelephoneNumber telNo)
             : base()
@@ -94,10 +94,10 @@ namespace McCallLib
         [ProtoMember(3, IsRequired = true)]
         public int LatencyMS { get; set; }
 
-        //public LatencyMessage()
-        //    : base()
-        //{
-        //}
+        public LatencyMessage()
+            : base()
+        {
+        }
 
         public LatencyMessage(TelephoneNumber myTelNo, TelephoneNumber sourceTelNo, int latencyMS)
             : base()
@@ -115,10 +115,10 @@ namespace McCallLib
         public NetworkOperator Operator { get; set; }
 
 
-        //public LatencyMessage()
-        //    : base()
-        //{
-        //}
+		public NetworkOperatorMessage()
+            : base()
+        {
+        }
 
         public NetworkOperatorMessage(NetworkOperator op)
             : base()
