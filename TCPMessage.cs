@@ -11,12 +11,21 @@ namespace McCallLib
     [ProtoInclude(5, typeof(ContractUnsubscribeMessage))]
     [ProtoInclude(6, typeof(LatencyMessage))]
     [ProtoInclude(7, typeof(NetworkOperatorMessage))]
-
+	[ProtoInclude(8, typeof(ExchangeSubscribeMessage))]
+	[ProtoInclude(9, typeof(ExchangeUnsubscribeMessage))]
     public abstract class TCPMessage
     {
+		[ProtoMember(1, IsRequired = true)]
+		public TelephoneNumber MyTelNo { get; set; }
+
         public TCPMessage()
         {
         }
+
+		public TCPMessage(TelephoneNumber myTelNo)
+		{
+			MyTelNo = myTelNo;
+		}
     }
 
     [ProtoContract]
@@ -26,6 +35,11 @@ namespace McCallLib
             : base()
         {
         }
+
+		public OKMessage(TelephoneNumber myTelNo)
+			: base (myTelNo)
+		{
+		}
     }
 
     [ProtoContract]
@@ -57,8 +71,8 @@ namespace McCallLib
         {
         }
 
-        public ContractSubscribeMessage(TelephoneNumber telNo)
-            : base()
+		public ContractSubscribeMessage(TelephoneNumber myTelNo, TelephoneNumber telNo)
+			: base(myTelNo)
         {
             TelNo = telNo;
         }
@@ -75,23 +89,20 @@ namespace McCallLib
         {
         }
 
-        public ContractUnsubscribeMessage(TelephoneNumber telNo)
-            : base()
-        {
-            TelNo = telNo;
-        }
+		public ContractUnsubscribeMessage(TelephoneNumber myTelNo, TelephoneNumber telNo)
+			: base(myTelNo)
+		{
+			TelNo = telNo;
+		}
     }
 
     [ProtoContract]
     public class LatencyMessage : TCPMessage
     {
-        [ProtoMember(1, IsRequired = true)]
-        public TelephoneNumber MyTelNo { get; set; }
-
-        [ProtoMember(2, IsRequired = true)]
+		[ProtoMember(1, IsRequired = true)]
         public TelephoneNumber SourceTelNo { get; set; }
 
-        [ProtoMember(3, IsRequired = true)]
+		[ProtoMember(2, IsRequired = true)]
         public int LatencyMS { get; set; }
 
         public LatencyMessage()
@@ -100,9 +111,8 @@ namespace McCallLib
         }
 
         public LatencyMessage(TelephoneNumber myTelNo, TelephoneNumber sourceTelNo, int latencyMS)
-            : base()
+			: base(myTelNo)
         {
-            MyTelNo = myTelNo;
             SourceTelNo = sourceTelNo;
             LatencyMS = latencyMS;
         }
@@ -114,16 +124,43 @@ namespace McCallLib
         [ProtoMember(1, IsRequired = true)]
         public NetworkOperator Operator { get; set; }
 
-
 		public NetworkOperatorMessage()
             : base()
         {
         }
 
-        public NetworkOperatorMessage(NetworkOperator op)
-            : base()
+		public NetworkOperatorMessage(TelephoneNumber myTelNo, NetworkOperator op)
+			: base(myTelNo)
         {
             Operator = op;
         }
     }
+
+	[ProtoContract]
+	public class ExchangeSubscribeMessage : TCPMessage
+	{
+		public ExchangeSubscribeMessage()
+			: base()
+		{
+		}
+
+		public ExchangeSubscribeMessage(TelephoneNumber myTelNo)
+			: base(myTelNo)
+		{
+		}
+	}
+
+	[ProtoContract]
+	public class ExchangeUnsubscribeMessage : TCPMessage
+	{
+		public ExchangeUnsubscribeMessage()
+			: base()
+		{
+		}
+
+		public ExchangeUnsubscribeMessage(TelephoneNumber myTelNo)
+			: base(myTelNo)
+		{
+		}
+	}
 }
